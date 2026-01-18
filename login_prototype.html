@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>融意 - 沟通无界限</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #ff7675 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            max-width: 1400px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ========== 移动端原型部分 ========== */
+        .mobile-prototype {
+            width: 360px;
+            height: 720px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 12px solid #000;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-bar-left {
+            display: flex;
+            gap: 4px;
+        }
+
+        .status-bar-right {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .screen-content {
+            flex: 1;
+            overflow-y: auto;
+            background: linear-gradient(180deg, #fff9f5 0%, #fff5f0 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        /* 装饰元素 - 温馨的圆形 */
+        .decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+        }
+
+        .decoration-1 {
+            width: 250px;
+            height: 250px;
+            background: #ff9a56;
+            top: -80px;
+            right: -80px;
+        }
+
+        .decoration-2 {
+            width: 180px;
+            height: 180px;
+            background: #ff6b6b;
+            bottom: 50px;
+            left: -60px;
+        }
+
+        /* Logo 和标题 */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            filter: drop-shadow(0 8px 20px rgba(255, 107, 107, 0.25));
+        }
+
+        /* SVG Logo - 融意 */
+        .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #ff9a56;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* 表单部分 */
+        .form-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+            border: 2px solid #ffe0d6;
+            border-radius: 12px;
+            padding: 0 16px;
+            font-size: 16px;
+            color: #333;
+            background: white;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ff9a56;
+            box-shadow: 0 0 0 3px rgba(255, 154, 86, 0.1);
+            background: #fffbf8;
+        }
+
+        .form-input::placeholder {
+            color: #ccc;
+        }
+
+        /* 记住密码和忘记密码 */
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            font-size: 12px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ffe0d6;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .checkbox.checked {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            border-color: #ff9a56;
+            color: white;
+            font-size: 12px;
+        }
+
+        .checkbox-label {
+            color: #666;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .forgot-password {
+            color: #ff9a56;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #ff6b6b;
+        }
+
+        /* 登录按钮 */
+        .login-btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.25);
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.35);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn.loading {
+            opacity: 0.8;
+        }
+
+        /* 注册链接 */
+        .register-link {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .register-link a {
+            color: #ff9a56;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #ff6b6b;
+        }
+
+        /* 成功提示 */
+        .success-message {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .success-message.show {
+            opacity: 1;
+        }
+
+        /* ========== 设计说明部分 ========== */
+        .design-notes {
+            width: 380px;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            height: fit-content;
+        }
+
+        .notes-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .notes-section {
+            margin-bottom: 25px;
+        }
+
+        .notes-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ff9a56;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notes-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .notes-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .notes-list li {
+            padding: 6px 0;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .notes-list li:before {
+            content: "✓ ";
+            color: #ff9a56;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .logo-explanation {
+            background: #fff5f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 4px solid #ff9a56;
+        }
+
+        .logo-explanation-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #ff9a56;
+            margin-bottom: 8px;
+        }
+
+        .logo-explanation-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .design-notes {
+                width: 100%;
+                max-width: 380px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-prototype {
+                width: 100%;
+                max-width: 360px;
+                height: auto;
+                min-height: 600px;
+            }
+
+            .design-notes {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 移动端原型 -->
+        <div class="mobile-prototype">
+            <div class="status-bar">
+                <div class="status-bar-left">9:41</div>
+                <div class="status-bar-right">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="screen-content">
+                <div class="decoration decoration-1"></div>
+                <div class="decoration decoration-2"></div>
+
+                <div class="logo-section">
+                    <div class="logo">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 外圆 - 代表包容 -->
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="url(#gradientMain)" stroke-width="3"/>
+                            
+                            <!-- 渐变定义 -->
+                            <defs>
+                                <linearGradient id="gradientMain" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff9a56;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="gradientFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff9a56;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- 左半部分 - 代表聋哑人 (手势) -->
+                            <g>
+                                <!-- 手臂 -->
+                                <path d="M 30 35 Q 25 40 28 50" stroke="url(#gradientFill)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                                <!-- 手掌 -->
+                                <circle cx="28" cy="55" r="4" fill="url(#gradientFill)"/>
+                                <!-- 手指 -->
+                                <path d="M 28 55 L 25 62" stroke="url(#gradientFill)" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M 28 55 L 28 63" stroke="url(#gradientFill)" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M 28 55 L 31 63" stroke="url(#gradientFill)" stroke-width="1.5" stroke-linecap="round"/>
+                            </g>
+
+                            <!-- 中间 - 融合点 (心形) -->
+                            <g>
+                                <path d="M 50 45 C 50 42 52 40 54 40 C 56 40 58 42 50 50 C 42 42 44 40 46 40 C 48 40 50 42 50 45 Z" fill="url(#gradientFill)"/>
+                            </g>
+
+                            <!-- 右半部分 - 代表健全人 (耳朵) -->
+                            <g>
+                                <!-- 耳朵外轮廓 -->
+                                <path d="M 70 35 Q 75 40 75 50 Q 75 60 70 65" stroke="url(#gradientFill)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                                <!-- 耳朵内部 -->
+                                <path d="M 72 40 Q 74 45 74 50 Q 74 55 72 60" stroke="url(#gradientFill)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            </g>
+
+                            <!-- 底部装饰 - 连接线 -->
+                            <path d="M 35 70 Q 50 75 65 70" stroke="url(#gradientFill)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">融意</div>
+                    <div class="logo-subtitle">沟通无界限</div>
+                </div>
+
+                <form class="form-section" id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">账号</label>
+                        <input 
+                            type="text" 
+                            class="form-input" 
+                            id="username" 
+                            placeholder="请输入手机号或邮箱"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <input 
+                            type="password" 
+                            class="form-input" 
+                            id="password" 
+                            placeholder="请输入密码"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-footer">
+                        <label class="checkbox-wrapper">
+                            <div class="checkbox" id="rememberCheckbox"></div>
+                            <span class="checkbox-label">记住我</span>
+                        </label>
+                        <a href="#" class="forgot-password" onclick="handleForgot(event)">忘记密码?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">登录</button>
+
+                    <div class="register-link">
+                        没有账号? <a href="#" onclick="handleRegister(event)">立即注册</a>
+                    </div>
+                </form>
+
+                <div class="success-message" id="successMessage">✓ 登录成功！</div>
+            </div>
+        </div>
+
+        <!-- 设计说明 -->
+        <div class="design-notes">
+            <div class="notes-title">📋 设计说明</div>
+
+            <div class="notes-section">
+                <div class="notes-section-title">🎨 视觉风格</div>
+                <ul class="notes-list">
+                    <li>温暖渐变色：橙色到红色，传递温馨感</li>
+                    <li>柔和圆角：12px 圆角，友好亲切</li>
+                    <li>柔和阴影：营造温暖的层次感</li>
+                    <li>浅色背景：米白色系，舒适护眼</li>
+                </ul>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-section-title">💡 Logo 设计理念</div>
+                <div class="logo-explanation">
+                    <div class="logo-explanation-title">融意 Logo 含义</div>
+                    <div class="logo-explanation-text">
+                        • 左侧手势：代表聋哑人的手语表达<br>
+                        • 中心心形：象征融合与包容的心意<br>
+                        • 右侧耳朵：代表健全人的听觉<br>
+                        • 连接线：寓意沟通无界，融合共通
+                    </div>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-section-title">✨ 交互特性</div>
+                <ul class="notes-list">
+                    <li>输入框焦点：边框变色+背景变化</li>
+                    <li>按钮悬停：上升效果+阴影增强</li>
+                    <li>复选框动画：平滑的选中状态</li>
+                    <li>表单验证：实时反馈和提示</li>
+                </ul>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-section-title">🎯 功能特点</div>
+                <ul class="notes-list">
+                    <li>账号密码登录：支持手机号/邮箱</li>
+                    <li>记住我功能：提升用户体验</li>
+                    <li>忘记密码：快速找回入口</li>
+                    <li>新用户注册：无缝引导流程</li>
+                </ul>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-section-title">🎭 色彩方案</div>
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-box" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);"></div>
+                        <span>主色</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #fff9f5;"></div>
+                        <span>背景</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-box" style="background: #ffe0d6;"></div>
+                        <span>边框</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-section-title">💬 设计理念</div>
+                <div class="notes-content">
+                    整体设计传递温馨、包容、融合的理念，让聋哑人和健全人都能感受到平等、友好的沟通环境。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 记住我复选框交互
+        const rememberCheckbox = document.getElementById('rememberCheckbox');
+        const checkboxWrapper = rememberCheckbox.parentElement;
+
+        checkboxWrapper.addEventListener('click', function(e) {
+            e.preventDefault();
+            rememberCheckbox.classList.toggle('checked');
+        });
+
+        // 表单提交
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const successMessage = document.getElementById('successMessage');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 简单验证
+            if (!username.value.trim()) {
+                alert('请输入账号');
+                username.focus();
+                return;
+            }
+
+            if (!password.value.trim()) {
+                alert('请输入密码');
+                password.focus();
+                return;
+            }
+
+            // 显示加载状态
+            loginBtn.classList.add('loading');
+            loginBtn.textContent = '登录中...';
+            loginBtn.disabled = true;
+
+            // 模拟登录请求
+            setTimeout(() => {
+                // 显示成功提示
+                successMessage.classList.add('show');
+
+                // 重置按钮
+                loginBtn.classList.remove('loading');
+                loginBtn.textContent = '登录';
+                loginBtn.disabled = false;
+
+                // 3秒后隐藏提示
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 3000);
+
+                // 清空表单
+                setTimeout(() => {
+                    loginForm.reset();
+                    rememberCheckbox.classList.remove('checked');
+                }, 1500);
+            }, 1500);
+        });
+
+        // 忘记密码
+        function handleForgot(e) {
+            e.preventDefault();
+            alert('跳转到找回密码页面');
+        }
+
+        // 注册
+        function handleRegister(e) {
+            e.preventDefault();
+            alert('跳转到注册页面');
+        }
+
+        // 输入框实时反馈
+        username.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.borderColor = '#ff9a56';
+            }
+        });
+
+        password.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.borderColor = '#ff9a56';
+            }
+        });
+    </script>
+</body>
+</html>
